@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.ExceptionHandling;
 
 namespace ApiEFAutofac.Controllers
 {
@@ -14,6 +15,7 @@ namespace ApiEFAutofac.Controllers
     public class StandardController : ApiController
     {
         private readonly IStandardRepository<Standard> _service;
+
         public StandardController(IStandardRepository<Standard> service)
         {
             _service = service;
@@ -31,6 +33,19 @@ namespace ApiEFAutofac.Controllers
 
             }
             return Ok(result);
+        }
+        public string Get()
+        {
+            try
+            {
+                int zero = 0;
+                int result = 100 / zero;
+            }
+            catch (DivideByZeroException ex)
+            {
+                throw ex;
+            }
+            return "";
         }
     }
 }
